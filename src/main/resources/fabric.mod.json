@@ -25,7 +25,6 @@
   "mixins": [
     "no_more_purple.mixins.json"
   ],
-  "accessWidener": "no_more_purple.classtweaker",
 
   "depends": {
     "fabricloader": ">=0.18.2",

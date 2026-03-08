@@ -2,9 +2,8 @@ package pepjebs.no_more_purple.mixin;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.minecraft.client.render.RenderLayer;
-import net.minecraft.client.render.item.ItemRenderer;
-
+import net.minecraft.client.renderer.entity.ItemRenderer;
+import net.minecraft.client.renderer.rendertype.RenderType;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Redirect;
@@ -17,33 +16,28 @@ import pepjebs.no_more_purple.client.NoMorePurpleClientMod;
 @Environment(EnvType.CLIENT)
 public abstract class ItemRendererMixin {
 
-//    @Redirect(method = "getArmorGlintConsumer", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/render/RenderLayer;getArmorEntityGlint()Lnet/minecraft/client/render/RenderLayer;"))
-//    private static RenderLayer getArmorEntityGlint() {
-//        return NoMorePurpleClientMod.getArmorEntityGlint();
-//    }
-
-    @Redirect(method = "getSpecialItemGlintConsumer", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/render/RenderLayers;glint()Lnet/minecraft/client/render/RenderLayer;"))
-    private static RenderLayer getSpecialGlint() {
+    @Redirect(method = "getSpecialFoilBuffer", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/renderer/rendertype/RenderTypes;glint()Lnet/minecraft/client/renderer/rendertype/RenderType;"))
+    private static RenderType getSpecialGlint() {
         return NoMorePurpleClientMod.getGlint();
     }
 
-    @Redirect(method = "getSpecialItemGlintConsumer", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/render/RenderLayers;glintTranslucent()Lnet/minecraft/client/render/RenderLayer;"))
-    private static RenderLayer getSpecialGlintTranslucent() {
+    @Redirect(method = "getSpecialFoilBuffer", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/renderer/rendertype/RenderTypes;glintTranslucent()Lnet/minecraft/client/renderer/rendertype/RenderType;"))
+    private static RenderType getSpecialGlintTranslucent() {
         return NoMorePurpleClientMod.getTranslucentGlint();
     }
 
-    @Redirect(method = "getItemGlintConsumer", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/render/RenderLayers;glintTranslucent()Lnet/minecraft/client/render/RenderLayer;"))
-    private static RenderLayer getGlintTranslucent() {
+    @Redirect(method = "getFoilBuffer", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/renderer/rendertype/RenderTypes;glintTranslucent()Lnet/minecraft/client/renderer/rendertype/RenderType;"))
+    private static RenderType getGlintTranslucent() {
         return NoMorePurpleClientMod.getTranslucentGlint();
     }
 
-    @Redirect(method = "getItemGlintConsumer", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/render/RenderLayers;glint()Lnet/minecraft/client/render/RenderLayer;"))
-    private static RenderLayer getGlint() {
+    @Redirect(method = "getFoilBuffer", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/renderer/rendertype/RenderTypes;glint()Lnet/minecraft/client/renderer/rendertype/RenderType;"))
+    private static RenderType getGlint() {
         return NoMorePurpleClientMod.getGlint();
     }
 
-    @Redirect(method = "getItemGlintConsumer", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/render/RenderLayers;entityGlint()Lnet/minecraft/client/render/RenderLayer;"))
-    private static RenderLayer getEntityGlint() {
+    @Redirect(method = "getFoilBuffer", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/renderer/rendertype/RenderTypes;entityGlint()Lnet/minecraft/client/renderer/rendertype/RenderType;"))
+    private static RenderType getEntityGlint() {
         return NoMorePurpleClientMod.getEntityGlint();
     }
 

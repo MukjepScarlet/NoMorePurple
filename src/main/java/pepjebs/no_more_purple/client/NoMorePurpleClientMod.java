@@ -12,9 +12,9 @@ import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.client.command.v2.ClientCommandManager;
 import net.fabricmc.fabric.api.client.command.v2.ClientCommandRegistrationCallback;
-import net.minecraft.client.render.RenderLayer;
-import net.minecraft.client.render.RenderLayers;
-import net.minecraft.util.DyeColor;
+import net.minecraft.client.renderer.rendertype.RenderType;
+import net.minecraft.client.renderer.rendertype.RenderTypes;
+import net.minecraft.world.item.DyeColor;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import pepjebs.no_more_purple.config.NoMorePurpleConfig;
@@ -36,7 +36,7 @@ public class NoMorePurpleClientMod implements ClientModInitializer {
         final var array = new String[colors.length + 4];
         int i = 0;
         for (; i < colors.length; i++) {
-            array[i] = colors[i].getId();
+            array[i] = colors[i].getName();
         }
         array[i++] = "rainbow";
         array[i++] = "light";
@@ -57,7 +57,7 @@ public class NoMorePurpleClientMod implements ClientModInitializer {
         map.put("none", colors.length + 2);
         map.put("off", -1);
         for (final var color : colors) {
-            map.put(color.getId(), color.getIndex());
+            map.put(color.getName(), color.getId());
         }
         COLOR_NAME_TO_ID = Object2IntSortedMaps.unmodifiable(map);
     }
@@ -94,34 +94,34 @@ public class NoMorePurpleClientMod implements ClientModInitializer {
     }
 
     @Environment(EnvType.CLIENT)
-    public static RenderLayer getGlint() {
+    public static RenderType getGlint() {
         int color = changeColor();
         if (color == -1)
-            return RenderLayers.glint();
+            return RenderTypes.glint();
         return GlintRenderLayer.glintColor.get(color);
     }
 
     @Environment(EnvType.CLIENT)
-    public static RenderLayer getEntityGlint() {
+    public static RenderType getEntityGlint() {
         int color = changeColor();
         if (color == -1)
-            return RenderLayers.entityGlint();
+            return RenderTypes.entityGlint();
         return GlintRenderLayer.entityGlintColor.get(color);
     }
 
     @Environment(EnvType.CLIENT)
-    public static RenderLayer getTranslucentGlint() {
+    public static RenderType getTranslucentGlint() {
         int color = changeColor();
         if (color == -1)
-            return RenderLayers.glintTranslucent();
+            return RenderTypes.glintTranslucent();
         return GlintRenderLayer.translucentGlintColor.get(color);
     }
 
     @Environment(EnvType.CLIENT)
-    public static RenderLayer getArmorEntityGlint() {
+    public static RenderType getArmorEntityGlint() {
         int color = changeColor();
         if (color == -1)
-            return RenderLayers.armorEntityGlint();
+            return RenderTypes.armorEntityGlint();
         return GlintRenderLayer.armorGlintColor.get(color);
     }
 }

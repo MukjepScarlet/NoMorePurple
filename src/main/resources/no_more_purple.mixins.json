@@ -6,8 +6,8 @@
   "mixins": [
   ],
   "client": [
-    "BufferBuilderStorageMixin",
-    "EquipmentRendererMixin",
+    "RenderBuffersMixin",
+    "EquipmentLayerRendererMixin",
     "ItemRendererMixin"
   ],
   "injectors": {
